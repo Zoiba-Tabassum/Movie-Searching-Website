@@ -1,0 +1,137 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #f5f5f5; /* Light grey background */
+}
+
+h1 {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+header {
+  background-color: #000; /* Black background for the header */
+  color: white;
+  padding: 1rem;
+}
+
+header input {
+  width: 60%;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  border: 1px solid #ccc; /* Grey border for input */
+  border-radius: 5px;
+}
+
+header button {
+  padding: 0.5rem;
+  background-color: #333; /* Dark grey button background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+header button:hover {
+  background-color: #444; /* Slightly lighter grey button on hover */
+}
+
+main {
+  padding: 2rem;
+}
+
+#movie-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.movie-card {
+  border: 1px solid #ccc; /* Light grey border for movie cards */
+  padding: 1rem;
+  width: 200px;
+  text-align: left;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* White background for cards */
+  border-radius: 8px;
+}
+
+#filters {
+  margin-top: 1rem;
+}
+
+#filters select {
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc; /* Grey border for select inputs */
+  background-color: #fff;
+}
+
+#filters select:focus {
+  outline: none;
+  border-color: #333; /* Dark grey border on focus */
+}
+
+/* Container for the rating bar */
+.rating-bar-container {
+  background-color: #e0e0e0; /* Light grey background for rating bar container */
+  border: 1px solid #ccc; /* Grey border for rating bar container */
+  border-radius: 5px;
+  overflow: hidden;
+  height: 10px;
+  margin: 0.5rem 0;
+  position: relative;
+}
+
+/* The rating bar itself */
+.rating-bar {
+  background-color: green; /* Dark grey color for the rating bar */
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* Styling for the canvas element that holds the chart */
+#ratingChart {
+  width: 100% !important;
+  height: 300px; /* Reduced height for a more compact chart */
+  margin: 20px 0;
+  border: 2px solid #ccc; /* Grey border around the chart */
+  border-radius: 8px;
+  background-color: #fff; /* White background for the chart */
+}
+
+/* Additional styling for the chart container if needed */
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%; /* Ensures full width for the chart container */
+  max-width: 900px; /* Optional: limits the max width for large screens */
+  margin-left: auto; /* Push the container to the right */
+  margin-right: auto; /* Centers the container */
+  height: 350px; /* Shortened height of the container */
+}
+
+.chart-title {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333; /* Dark grey title under the chart */
+  text-align: center;
+}
+
+/* Movie Container */
+#movie-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 20px;
+  background-color: #fff; /* White background for the movie container */
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

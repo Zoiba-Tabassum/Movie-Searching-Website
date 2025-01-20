@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Search</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Movie Search</h1>
+      <input type="text" id="search-bar" placeholder="Search for movies..." />
+      <button id="search-button">Search</button>
+      <div id="filters">
+        <select id="genre-filter">
+          <option value="">All Genres</option>
+          <option value="action">Action</option>
+          <option value="comedy">Comedy</option>
+          <option value="drama">Drama</option>
+          <option value="horror">Horror</option>
+          <option value="sci-fi">Sci-Fi</option>
+          <option value="animation">Animation</option>
+          <option value="crime">Crime</option>
+          <option value="fantasy">Fantasy</option>
+          <option value="western">Western</option>
+          <option value="biography">Biography</option>
+        </select>
+        <select id="rating-filter">
+          <option value="">All Ratings</option>
+          <option value="8">8+</option>
+          <option value="7">7+</option>
+          <option value="6">6+</option>
+        </select>
+        <select id="year-filter">
+          <option value="">All Years</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+        </select>
+      </div>
+    </header>
+    <main class="main-container">
+      <!-- Chart Container: Move it above the movie container -->
+      <div class="chart-container">
+        <canvas id="ratingChart"></canvas>
+        <div class="chart-title">Rating Distribution</div>
+      </div>
+
+      <!-- Movie Container: Below the graph -->
+      <div id="movie-container">
+        <!-- Movie cards will go here -->
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
