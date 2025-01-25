@@ -25,7 +25,7 @@ app.use((req, res) => {
 });
 
 // Start the server
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+
+app.listen(process.env.SERVER_PORT, () => {
+  console.log(`Server running on http://localhost:${process.env.SERVER_PORT}`);
 });
