@@ -48,16 +48,44 @@ const handleMovieRequest = async (req, res) => {
 
 // Fetch movies with optional filters
 const getFilteredMovies = async (searchValue, genre, rating, year) => {
+  let fetchMoviesQuery = `
+    SELECT 
+      m.mID, 
+      m.mName, 
+      m.yearOfRelease, 
+      m.rating,
+      m.mDescription,
+      GROUP_CONCAT(DISTINCT g.gName) AS genres,
+      GROUP_CONCAT(DISTINCT a.aName) AS actors,
+      GROUP_CONCAT(DISTINCT d.dName) AS directors,
+      GROUP_CONCAT(DISTINCT p.pName) AS productionCompanies
+    FROM movie m
+  `;
+
   const conditions = [];
   const params = [];
+
+  // Add joins and conditions dynamically
+  if (genre) {
+    fetchMoviesQuery += ` INNER JOIN movie_genre mg ON m.mID = mg.mID INNER JOIN genre g ON mg.gID = g.gID`;
+    conditions.push("g.gName = ?");
+    params.push(genre);
+  } else {
+    fetchMoviesQuery += ` LEFT JOIN movie_genre mg ON m.mID = mg.mID LEFT JOIN genre g ON mg.gID = g.gID`;
+  }
+
+  fetchMoviesQuery += `
+    LEFT JOIN movie_actor ma ON m.mID = ma.mID
+    LEFT JOIN actor a ON ma.aID = a.aID
+    LEFT JOIN movie_director md ON m.mID = md.mID
+    LEFT JOIN director d ON md.dID = d.dID
+    LEFT JOIN movie_prodCoy mp ON m.mID = mp.mID
+    LEFT JOIN productionCompany p ON mp.pID = p.pID
+  `;
 
   if (searchValue) {
     conditions.push("m.mName LIKE ?");
     params.push(`%${searchValue}%`);
-  }
-  if (genre) {
-    conditions.push("g.gName = ?");
-    params.push(genre);
   }
   if (rating) {
     conditions.push("m.rating >= ?");
@@ -68,36 +96,17 @@ const getFilteredMovies = async (searchValue, genre, rating, year) => {
     params.push(year);
   }
 
-  const whereClause =
-    conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+  const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
 
-  const fetchMoviesQuery = `
-    SELECT 
-    m.mID, 
-    m.mName, 
-    m.yearOfRelease, 
-    m.rating,
-    m.mDescription,
-    GROUP_CONCAT(DISTINCT g.gName) AS genres,
-    GROUP_CONCAT(DISTINCT a.aName) AS actors,
-    GROUP_CONCAT(DISTINCT d.dName) AS directors,
-    GROUP_CONCAT(DISTINCT p.pName) AS productionCompanies
-  FROM movie m
-  LEFT JOIN movie_genre mg ON m.mID = mg.mID
-  LEFT JOIN genre g ON mg.gID = g.gID
-  LEFT JOIN movie_actor ma ON m.mID = ma.mID
-  LEFT JOIN actor a ON ma.aID = a.aID
-  LEFT JOIN movie_director md ON m.mID = md.mID
-  LEFT JOIN director d ON md.dID = d.dID
-  LEFT JOIN movie_prodCoy mp ON m.mID = mp.mID
-  LEFT JOIN productionCompany p ON mp.pID = p.pID
-  ${whereClause}
-  GROUP BY m.mID
-  ORDER BY m.yearOfRelease DESC;
+  fetchMoviesQuery += `
+    ${whereClause}
+    GROUP BY m.mID
+    ORDER BY m.yearOfRelease DESC;
   `;
 
   return executeQuery(fetchMoviesQuery, params);
 };
+
 
 //utility function to execute queries
 const executeQuery = (query, params = []) => {
